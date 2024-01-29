@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: post
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: isaacwhiz
+      POSTGRES_PASSWORD: JavaDevKyra@256
+      PGDATA: /data/full_stack
+    volumes:
+        - db:/data/full_stack
+    ports:
+        - "2001:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+  isaacwhiz-api:
+   container_name: whiz-api
+   image: isaacwhiz/whiz-api
+#   environment:   this is the same as command
+#     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/full_stack
+   ports:
+     - "8088:8080"
+   networks:
+     - db
+   depends_on:
+    - db
+   restart: unless-stopped
+   command:
+     - --spring.datasource.url=jdbc:postgresql://db:5432/full_stack
+
+networks:
+  db:
+    driver: bridge
+volumes:
+    db:

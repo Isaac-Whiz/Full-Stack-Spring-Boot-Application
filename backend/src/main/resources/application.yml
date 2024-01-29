@@ -1,0 +1,21 @@
+server:
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:2001/full_stack
+    username: whiz
+    password: isaacwhiz
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: true
+  main:
+    web-application-type: servlet
+  flyway:
+    baseline-on-migrate: true
