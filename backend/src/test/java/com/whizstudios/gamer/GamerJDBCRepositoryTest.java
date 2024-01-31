@@ -76,7 +76,8 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     @Test
     void itShouldDeleteGamerById() {
         //Given
-        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
+//        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
+        Gamer gamer = new Gamer(1, 23, Siriimu, "siriimu@gmail.com");
         gamerJDBCRepository.saveGamer(gamer);
         //When
         gamerJDBCRepository.deleteGamerById(1);
