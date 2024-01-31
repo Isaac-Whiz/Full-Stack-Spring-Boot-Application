@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "whiz-api",
+      "image": "isaacwhiz/whiz-api:latest",
+      "essential": true,
+      "memory": 215,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://awseb-e-jua3isge26-stack-awsebrdsdatabase-vhvnwf3lvbpn.ctk0c2g4wp2g.af-south-1.rds.amazonaws.com:5432/full_stack"
+        }
+      ]
+    }
+  ]
+}
