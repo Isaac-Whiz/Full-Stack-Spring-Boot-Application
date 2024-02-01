@@ -77,7 +77,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     void itShouldDeleteGamerById() {
         //Given
 //        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
-        Gamer gamer = new Gamer(1, 23, Siriimu, "siriimu@gmail.com");
+        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
         gamerJDBCRepository.saveGamer(gamer);
         //When
         gamerJDBCRepository.deleteGamerById(1);
@@ -91,8 +91,8 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
         Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
         gamerJDBCRepository.saveGamer(gamer);
         //When
-        gamerJDBCRepository.updateGamer(new Gamer(1, 23,
-                "Mukenenya", "mukenenya@gmail.com"));
+//        gamerJDBCRepository.updateGamer(new Gamer(1, 23,
+//                "Mukenenya", "mukenenya@gmail.com"));
         //Then
         assertThat(gamerJDBCRepository.findGamerById(1).get().getName().equals("Mukenenya") &&
                 gamerJDBCRepository.findGamerById(1).get().getEmail().equals("mukenenya@gmail.com")).isTrue();
