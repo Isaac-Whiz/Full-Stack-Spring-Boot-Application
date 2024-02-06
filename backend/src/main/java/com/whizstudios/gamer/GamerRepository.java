@@ -10,6 +10,5 @@ public interface GamerRepository extends JpaRepository<Gamer, Long> {
     @Nonnull
     Optional<Gamer> findById(Long id);
 
-    long findGamerByAge(Long age);
 
 }
