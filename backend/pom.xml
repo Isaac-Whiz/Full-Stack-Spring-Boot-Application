@@ -13,13 +13,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Full Stack</name>
     <description>Full Stack</description>
-    <organization>
-        <name>isaacwhiz</name>
-        <url>https://whizstudios.com</url>
-    </organization>
+
     <properties>
         <java.version>21</java.version>
         <docker.username>isaacwhiz</docker.username>
+        <docker.image.name>whiz-api</docker.image.name>
+        <docker.image.tag/>
     </properties>
     <dependencies>
 
@@ -99,6 +98,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>3.2.2</version>
         </dependency>
     </dependencies>
 
@@ -202,7 +206,7 @@
 <!--                        </auth>-->
                     </from>
                     <to>
-                        <image>docker.io/${docker.username}/${project.artifactId}:${project.version}</image>
+                        <image>docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}</image>
 <!--                        <image>docker.io/${project.organization.name}/${project.artifactId}:${project.version}</image>-->
 <!--                        <image>docker.io/isaacwhiz/fullstack-api</image>-->
                         <tags>
