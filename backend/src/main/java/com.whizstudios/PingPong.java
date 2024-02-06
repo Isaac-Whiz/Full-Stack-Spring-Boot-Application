@@ -8,8 +8,9 @@ public class PingPong {
 
     record Ping(String ping){};
 
+
     @GetMapping("/ping")
     public Ping getPingPong() {
-        return new Ping("Pong");
+        return new Ping("Pong message");
     }
 }
