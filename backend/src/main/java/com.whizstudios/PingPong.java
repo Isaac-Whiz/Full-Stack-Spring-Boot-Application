@@ -10,6 +10,6 @@ public class PingPong {
 
     @GetMapping("/ping")
     public Ping getPingPong() {
-        return new Ping("Pong message");
+        return new Ping("Pong successful");
     }
 }
