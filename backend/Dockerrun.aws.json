@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "whiz-api",
-      "image": "isaacwhiz/whiz-api:latest",
+      "image": "isaacwhiz/whiz-api:08.02.2024.03.10.17",
       "essential": true,
       "memory": 215,
       "portMappings": [
