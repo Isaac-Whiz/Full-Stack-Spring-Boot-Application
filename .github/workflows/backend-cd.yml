@@ -34,6 +34,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
+      - name: Docker image build preparation
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"About to docker image build"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
       - name: Login into Docker Hub
         uses: docker/login-action@v3
         with:
@@ -51,6 +56,16 @@ jobs:
           sed -i -E 's_(isaacwhiz/whiz-api:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' Dockerrun.aws.json
           echo "Dockerrun.aws.json after updating the tag"
           cat Dockerrun.aws.json
+      - name: Send docker image deployment message
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Docker image deployment success"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
+      - name: EB deployment preparation
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"AWS deployment preparation"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -62,6 +77,16 @@ jobs:
          version_description: ${{ github.SHA }}
          region: ${{ secrets.EB_REGION }}
          deployment_package: backend/Dockerrun.aws.json
+      - name: Send EB deployment success message
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"EB deployment success"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
+      - name: About to commit changes to github
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Git push preparation"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
       - name: Commit and push Dockerrun.aws.json
         run: |
           git config user.name github-actions
@@ -69,5 +94,10 @@ jobs:
           git add .
           git commit -m "Updated Dockerrun.aws.json docker image with image tag ${{steps.build-number.outputs.BUILD_NUMBER}}"
           git push
+      - name: Send final deployment message
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Docker image deployed successfully, AWS EB deployment success, Git push success"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
 
           
