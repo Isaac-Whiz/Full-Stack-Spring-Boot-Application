@@ -37,7 +37,7 @@ jobs:
       - name: Docker image build preparation
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"About to docker image build"}'
+          --data '{"text":"Logging into docker for image build :docker: :login:"}'
           ${{secrets.SLACK_WEBHOOK_URL}}
       - name: Login into Docker Hub
         uses: docker/login-action@v3
@@ -59,12 +59,12 @@ jobs:
       - name: Send docker image deployment message
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"Docker image deployment success"}'
+          --data '{"text":"Docker image deployment success :link-success"}'
           ${{secrets.SLACK_WEBHOOK_URL}}
       - name: EB deployment preparation
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"AWS deployment preparation"}'
+          --data '{"text":"AWS deployment preparation :aws_eb: :aws:"}'
           ${{secrets.SLACK_WEBHOOK_URL}}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
@@ -80,7 +80,7 @@ jobs:
       - name: Send EB deployment success message
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"EB deployment success"}'
+          --data '{"text":"EB deployment success :aws: :success:}'
           ${{secrets.SLACK_WEBHOOK_URL}}
       - name: About to commit changes to github
         run: >
@@ -97,7 +97,7 @@ jobs:
       - name: Send final deployment message
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"Docker image deployed successfully, AWS EB deployment success, Git push success"}'
+          --data '{"text":"Docker image deployed successfully, AWS EB deployment success, Git push success :finish-line: :smart: :cool-doge:"}'
           ${{secrets.SLACK_WEBHOOK_URL}}
 
           
