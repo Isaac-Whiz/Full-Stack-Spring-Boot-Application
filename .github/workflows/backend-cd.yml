@@ -29,6 +29,11 @@ jobs:
         working-directory: ./backend
     steps:
       - uses: actions/checkout@v4
+      - name: Slack commit message and sha
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"https://github.com/Isaac-Whiz/Full-Stack-Spring-Boot-Application/commit/${{ github.sha }} - ${{ github.event.head_commit.message }}"}'
+          ${{secrets.SLACK_WEBHOOK_URL}}
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -42,8 +47,8 @@ jobs:
       - name: Login into Docker Hub
         uses: docker/login-action@v3
         with:
-            username: ${{ secrets.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
       - name: Set builder number
         id: build-number
         run: echo "BUILD_NUMBER=$(date '+%d.%m.%Y.%H.%M.%S')" >> $GITHUB_OUTPUT
@@ -59,7 +64,7 @@ jobs:
       - name: Send docker image deployment message
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":"Docker image deployment success :link-success"}'
+          --data '{"text":"Docker image deployment success :link-success:"}'
           ${{secrets.SLACK_WEBHOOK_URL}}
       - name: EB deployment preparation
         run: >
@@ -69,14 +74,14 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         application_name: ${{ secrets.EB_APPLICATION_NAME }}
-         environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
-         version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
-         version_description: ${{ github.SHA }}
-         region: ${{ secrets.EB_REGION }}
-         deployment_package: backend/Dockerrun.aws.json
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.EB_APPLICATION_NAME }}
+          environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
+          version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
+          version_description: ${{ github.SHA }}
+          region: ${{ secrets.EB_REGION }}
+          deployment_package: backend/Dockerrun.aws.json
       - name: Send EB deployment success message
         run: >
           curl -X POST -H 'Content-type: application/json'
