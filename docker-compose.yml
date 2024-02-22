@@ -4,12 +4,12 @@ services:
     image: postgres:15.4
     environment:
       POSTGRES_USER: isaacwhiz
-      POSTGRES_PASSWORD: JavaDevKyra@256
+      POSTGRES_PASSWORD: isaacwhiz
       PGDATA: /data/full_stack
     volumes:
         - db:/data/full_stack
     ports:
-        - "2001:5432"
+        - "5432:5432"
     networks:
       - db
     restart: unless-stopped
