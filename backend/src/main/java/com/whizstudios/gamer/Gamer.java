@@ -28,10 +28,9 @@ public class Gamer {
     private String email;
 
     @Column(name = "gender", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
-    public Gamer(long id, int age, String name, String email, Gender gender) {
+    public Gamer(long id, int age, String name, String email, String gender) {
         this.id = id;
         this.age = age;
         this.name = name;
@@ -39,7 +38,7 @@ public class Gamer {
         this.gender = gender;
     }
 
-    public Gamer(int age, String name, String email, Gender gender) {
+    public Gamer(int age, String name, String email, String gender) {
         this.age = age;
         this.name = name;
         this.email = email;
@@ -109,11 +108,11 @@ public class Gamer {
         this.email = email;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }

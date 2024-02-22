@@ -11,5 +11,7 @@ public interface GamerDAO {
     boolean existsGamerById(long id);
     void deleteGamerById(long id);
     void updateGamer(Gamer update);
+    void deleteAllGamers();
+
 
 }

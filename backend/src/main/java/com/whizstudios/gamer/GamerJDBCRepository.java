@@ -46,7 +46,7 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public boolean existsGamerWithEmail(String email) {
         var sql = """
-                  SELECT id, age, name, email FROM gamer WHERE email = ?
+                  SELECT id, age, name, email, gender FROM gamer WHERE email = ?
                   """;
         return !jdbcTemplate.query(sql, gamerRowMapper, email).isEmpty();
     }
@@ -92,5 +92,11 @@ public class GamerJDBCRepository implements GamerDAO{
         }
     }
 
-
+    @Override
+    public void deleteAllGamers() {
+        var sql = """
+                  DELETE FROM gamer;
+                  """;
+        jdbcTemplate.execute(sql);
+    }
 }

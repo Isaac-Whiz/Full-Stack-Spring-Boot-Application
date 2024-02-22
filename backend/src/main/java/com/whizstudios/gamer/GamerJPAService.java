@@ -46,4 +46,9 @@ public class GamerJPAService implements GamerDAO{
     @Override
     public void updateGamer(Gamer update) {
     }
+
+    @Override
+    public void deleteAllGamers() {
+
+    }
 }
