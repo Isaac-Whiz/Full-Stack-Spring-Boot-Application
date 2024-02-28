@@ -8,7 +8,7 @@ cors:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/full_stack
+    url: jdbc:postgresql://localhost:2001/full_stack
     username: whiz
     password: isaacwhiz
   jpa:
