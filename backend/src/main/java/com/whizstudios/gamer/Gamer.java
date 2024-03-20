@@ -10,7 +10,6 @@ import java.util.Objects;
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "gamer_email_unique", columnNames = "email")
 })
-//@AllArgsConstructor
 @NoArgsConstructor
 public class Gamer {
     @Id
@@ -43,6 +42,11 @@ public class Gamer {
         this.name = name;
         this.email = email;
         this.gender = gender;
+    }
+    public Gamer(int age, String name, String email) {
+        this.age = age;
+        this.name = name;
+        this.email = email;
     }
 
     public Gamer(String name, String email) {

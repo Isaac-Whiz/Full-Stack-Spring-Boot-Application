@@ -39,7 +39,6 @@ public class GamerJDBCRepository implements GamerDAO{
         var sql = """
                   INSERT INTO gamer VALUES(?, ?, ?, ?, ?)
                   """;
-//        jdbcTemplate.update(sql, gamer.getName(), gamer.getEmail());
         jdbcTemplate.update(sql, gamer.getId(), gamer.getAge(), gamer.getName(), gamer.getEmail(), gamer.getGender());
     }
 
@@ -56,7 +55,6 @@ public class GamerJDBCRepository implements GamerDAO{
         var sql = """
                   SELECT id, age, name, email, gender FROM gamer WHERE id = ?
                   """;
-//        return jdbcTemplate.queryForObject(sql, Integer.class, id) == 0;
         return !jdbcTemplate.query(sql, gamerRowMapper, id).isEmpty();
     }
 
@@ -69,7 +67,7 @@ public class GamerJDBCRepository implements GamerDAO{
     }
 
     @Override
-    public void updateGamer(Gamer update) {
+    public void updateGamer( Gamer update) {
         if (update.getName() != null) {
             var sql = """
                       UPDATE gamer SET name = ? WHERE id = ?
@@ -77,12 +75,10 @@ public class GamerJDBCRepository implements GamerDAO{
             jdbcTemplate.update(sql, update.getName(), update.getId());
         }
 
-//        if (update.getAge() != null) {
-//            var sql = """
-//                      UPDATE gamer SET age = ? WHERE id = ?
-//                      """;
-//            jdbcTemplate.update(sql, update.getAge(), update.getId());
-//        }
+            var sqlStatement = """
+                      UPDATE gamer SET age = ? WHERE id = ?
+                      """;
+            jdbcTemplate.update(sqlStatement, update.getAge(), update.getId());
 
         if (update.getEmail() != null) {
             var sql = """
@@ -92,11 +88,20 @@ public class GamerJDBCRepository implements GamerDAO{
         }
     }
 
+
     @Override
     public void deleteAllGamers() {
         var sql = """
                   DELETE FROM gamer;
                   """;
         jdbcTemplate.execute(sql);
+    }
+
+    @Override
+    public Optional<Gamer> selectGamerById(long id) {
+        var sql = """
+                  SELECT id, age, name, email, gender FROM gamer WHERE id = ?
+                  """;
+        return jdbcTemplate.query(sql, gamerRowMapper, id).stream().findFirst();
     }
 }

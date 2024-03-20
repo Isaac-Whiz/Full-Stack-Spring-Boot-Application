@@ -22,10 +22,10 @@ public class GamerController {
 
     @GetMapping(path = "api/v1/gamers/{id}")
     Gamer getGamer(@PathVariable("id") long id) {
-        return gamerService.findGamerById(id).orElseThrow(() -> new CustomExceptions("Gamer not found bullshit!"));
+        return gamerService.findGamerById(id).orElseThrow(() -> new CustomExceptions("Gamer not found."));
     }
 
-    @PostMapping
+    @PostMapping("api/v1/gamer")
     void registerGamer(@RequestBody Gamer gamer) {
         gamerJPAService.saveGamer(gamer);
     }
@@ -50,8 +50,9 @@ public class GamerController {
         jdbcRepository.deleteGamerById(id);
     }
 
-    @PutMapping(path = "api/v1/gamers/update/{update}")
-    void updateGamer(@PathVariable("update") Gamer update) {
-        jdbcRepository.updateGamer(update);
+    @PutMapping(path = "api/v1/gamers/update/{id}")
+    void updateGamer(@PathVariable("id") long id, @RequestBody GamerUpdateRequest update) {
+        gamerService.updateGamer(id, update);
     }
+
 }

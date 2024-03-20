@@ -7,25 +7,25 @@ import java.util.Optional;
 
 @Service
 public class GamerJPAService implements GamerDAO{
-    private final GamerRepository gamerRepository;
+    private final GamerJPARepository gamerJPARepository;
 
-    public GamerJPAService(GamerRepository gamerRepository) {
-        this.gamerRepository = gamerRepository;
+    public GamerJPAService(GamerJPARepository gamerJPARepository) {
+        this.gamerJPARepository = gamerJPARepository;
     }
 
     @Override
     public Optional<Gamer> findGamerById(long id) {
-        return gamerRepository.findById(id);
+        return gamerJPARepository.findById(id);
     }
 
     @Override
     public List<Gamer> findGamers() {
-        return gamerRepository.findAll();
+        return gamerJPARepository.findAll();
     }
 
     @Override
     public void saveGamer(Gamer gamer) {
-        gamerRepository.save(gamer);
+        gamerJPARepository.save(gamer);
     }
 
     @Override
@@ -35,20 +35,26 @@ public class GamerJPAService implements GamerDAO{
 
     @Override
     public boolean existsGamerById(long id) {
-        return gamerRepository.existsById(id);
+        return gamerJPARepository.existsById(id);
     }
 
     @Override
     public void deleteGamerById(long id) {
-        gamerRepository.deleteById(id);
+        gamerJPARepository.deleteById(id);
     }
 
     @Override
     public void updateGamer(Gamer update) {
+        gamerJPARepository.save(update);
     }
 
     @Override
     public void deleteAllGamers() {
-
     }
+
+    @Override
+    public Optional<Gamer> selectGamerById(long id) {
+        return Optional.empty();
+    }
+
 }

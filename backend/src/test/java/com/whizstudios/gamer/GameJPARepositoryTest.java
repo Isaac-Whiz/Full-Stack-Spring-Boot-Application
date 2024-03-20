@@ -32,7 +32,7 @@
 ////    }
 //
 //    @Autowired
-//    private GamerRepository gamerRepository;
+//    private GamerJPARepository gamerRepository;
 //
 //    @BeforeEach
 //    void setUp() {

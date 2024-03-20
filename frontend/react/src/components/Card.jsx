@@ -10,18 +10,51 @@ import {
     Text,
     Stack,
     Tag,
+    Button,
     useColorModeValue,
+    useDisclosure,
+    AlertDialog,
+    AlertDialogOverlay,
+    AlertDialogHeader,
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    Drawer,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    DrawerHeader,
+    DrawerBody, DrawerFooter,
 } from '@chakra-ui/react'
+import {useRef} from "react";
+import * as PropTypes from "prop-types";
+import {failureNotification, successNotification} from "../services/Notification.js";
+import {deleteGamer} from "../services/client.js";
+import UpdateGamerForm from "./shared/UpdateGamerForm.jsx";
+import UpdateGamerDrawer from "./shared/UpdateGamerDrawer.jsx";
 
-export default function CardWithImage({id, name, email, age, gender, randomNumber}) {
+
+AlertDialogHeader.propTypes = {
+    fontSize: PropTypes.string,
+    fontWeight: PropTypes.string,
+    children: PropTypes.node
+};
+export default function CardWithImage({id, name, email, age, gender, randomNumber, fetchGamers}) {
     const randomGender = gender === "MALE" ? "men" : "women";
+    const {isOpen, onOpen, onClose} = useDisclosure()
+    const cancelRef = useRef()
+
+
     return (
         <Center py={6}>
             <Box
                 maxW={'300px'}
+                minW={'300px'}
                 w={'full'}
+                margin={1}
+                paddingBottom={3}
                 bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'2xl'}
+                boxShadow={'lg'}
                 rounded={'md'}
                 overflow={'hidden'}>
                 <Image
@@ -37,7 +70,7 @@ export default function CardWithImage({id, name, email, age, gender, randomNumbe
                     <Avatar
                         size={'xl'}
                         src={
-                        `https://randomuser.me/api/portraits/${randomGender}/${randomNumber}.jpg`
+                            `https://randomuser.me/api/portraits/${randomGender}/${randomNumber}.jpg`
                         }
                         css={{
                             border: '2px solid white',
@@ -55,6 +88,72 @@ export default function CardWithImage({id, name, email, age, gender, randomNumbe
                         <Text color={'gray.500'}>Age {age} | {gender}</Text>
                     </Stack>
                 </Box>
+                <Stack direction={"row"} justify={"center"} spacing={6}>
+                    <Stack>
+                        <UpdateGamerDrawer
+                            initialValues={{ name, email, age }}
+                        gamerId={id}/>
+                    </Stack>
+                    <Stack>
+                        <Button colorScheme='blue'
+                                bg={'red.400'}
+                                color={'white'}
+                                rounded={'full'}
+                                _hover={{
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: 'lg'
+                                }}
+                                _focus={{
+                                    bg: 'green.500'
+                                }}
+                                onClick={onOpen}
+                        >
+                            Delete
+                        </Button>
+
+
+                        <AlertDialog
+                            isOpen={isOpen}
+                            leastDestructiveRef={cancelRef}
+                            onClose={onClose}
+                        >
+                            <AlertDialogOverlay>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                        Delete Gamer
+                                    </AlertDialogHeader>
+
+                                    <AlertDialogBody>
+                                        Surely you want to delete {name} ? You won't be able to undo this.
+                                    </AlertDialogBody>
+
+                                    <AlertDialogFooter>
+                                        <Button ref={cancelRef} onClick={onClose}>
+                                            Cancel
+                                        </Button>
+
+                                        <Button colorScheme='red' onClick={() => {
+                                            deleteGamer(id).then(
+                                                res => {
+                                                    successNotification("Deleted", `Gamer ${name} deleted successfully.`);
+                                                    fetchGamers();
+                                                }
+                                            ).catch(err => {
+                                                failureNotification(err.code, err.response.data.message)
+                                            }).finally(() => onClose());
+                                        }}
+                                                ml={3}
+                                        >
+                                            Delete
+                                        </Button>
+
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialogOverlay>
+                        </AlertDialog>
+
+                    </Stack>
+                </Stack>
             </Box>
         </Center>
     )

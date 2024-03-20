@@ -12,6 +12,5 @@ public interface GamerDAO {
     void deleteGamerById(long id);
     void updateGamer(Gamer update);
     void deleteAllGamers();
-
-
+    Optional<Gamer> selectGamerById(long id);
 }

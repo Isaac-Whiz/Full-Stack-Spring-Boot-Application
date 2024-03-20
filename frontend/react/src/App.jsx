@@ -3,6 +3,7 @@ import SidebarWithHeader from "./components/shared/sideBar.jsx";
 import {useEffect, useState} from "react";
 import {getGamers} from "./services/client.js";
 import CardWithImage from "./components/Card.jsx";
+import CreateGamerDrawer from "./components/shared/CreateGamerDrawer.jsx";
 
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
     const [gamers, setGamers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+    const fetchGamers = () => {
         setLoading(true);
         getGamers().then(res => {
             setGamers(res.data);
@@ -19,6 +20,10 @@ const App = () => {
         }).finally(() => {
             setLoading(false);
         })
+    };
+
+    useEffect(() => {
+        fetchGamers();
     }, [])
 
     if (loading) {
@@ -38,19 +43,26 @@ const App = () => {
     if (gamers.length <= 0) {
         return (
             <SidebarWithHeader>
-                <Text>No gamers found 😢</Text>
+                <CreateGamerDrawer
+                    fetchGamers={fetchGamers}
+                />
+                <Text marginTop={6}>No gamers found 😢</Text>
             </SidebarWithHeader>
         )
     }
 
     return (
         <SidebarWithHeader>
+            <CreateGamerDrawer
+            fetchGamers={fetchGamers}
+            />
             <Wrap justify={"center"} spacing={"30px"}>
                     {gamers.map((gamer, index) => (
                         <WrapItem key={index}>
                             <CardWithImage
                                 {...gamer}
                                 randomNumber={index}
+                                fetchGamers={fetchGamers}
                             />
                         </WrapItem>
                     ))}

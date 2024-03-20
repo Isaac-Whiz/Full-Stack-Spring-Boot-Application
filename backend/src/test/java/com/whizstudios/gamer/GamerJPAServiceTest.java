@@ -12,12 +12,12 @@ class GamerJPAServiceTest {
     private GamerJPAService underTest;
 
     @Mock
-    private GamerRepository gamerRepository;
+    private GamerJPARepository gamerJPARepository;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        underTest = new GamerJPAService(gamerRepository);
+        underTest = new GamerJPAService(gamerJPARepository);
     }
 
     @AfterEach
@@ -36,7 +36,7 @@ class GamerJPAServiceTest {
         //When
         underTest.findGamers();
         //Then
-        Mockito.verify(gamerRepository).findAll();
+        Mockito.verify(gamerJPARepository).findAll();
     }
 
     @Test
@@ -53,7 +53,7 @@ class GamerJPAServiceTest {
         //When
         underTest.findGamerById(id);
         //Then
-        Mockito.verify(gamerRepository).findById(id);
+        Mockito.verify(gamerJPARepository).findById(id);
     }
 
     @Test

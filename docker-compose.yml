@@ -14,20 +14,33 @@ services:
       - db
     restart: unless-stopped
 
-#  isaacwhiz-api:
-#   container_name: whiz-api
-#   image: isaacwhiz/whiz-api
-##   environment:   this is the same as command
-##     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/full_stack
-#   ports:
-#     - "8088:8080"
-#   networks:
-#     - db
-#   depends_on:
-#    - db
-#   restart: unless-stopped
+  isaacwhiz-api:
+   container_name: whiz-api
+   image: isaacwhiz/whiz-api
+   environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/full_stack
+   ports:
+     - "8088:8080"
+   networks:
+     - db
+   depends_on:
+     - db
+   restart: unless-stopped
 #   command:
 #     - --spring.datasource.url=jdbc:postgresql://db:5432/full_stack
+
+  isaacwhiz-react:
+    container_name: frontend-react
+    image: isaacwhiz/whiz-react
+    build:
+      context: frontend/react
+      args:
+        api_base_url: http://localhost:8088
+    ports:
+      - "3000:5173"
+    depends_on:
+      - isaacwhiz-api
+    restart: unless-stopped
 
 networks:
   db:
