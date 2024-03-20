@@ -9,5 +9,6 @@ public interface GamerJPARepository extends JpaRepository<Gamer, Long> {
 
     @Nonnull
     Optional<Gamer> findById(Long id);
+    void deleteById(Long id);
 
 }
