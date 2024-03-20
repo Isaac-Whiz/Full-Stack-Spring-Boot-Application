@@ -5,7 +5,7 @@
       "name": "whiz-api",
       "image": "isaacwhiz/whiz-api:28.02.2024.02.21.37",
       "essential": true,
-      "memory": 215,
+      "memory": 200,
       "portMappings": [
         {
           "hostPort": 8080,
@@ -19,11 +19,11 @@
         }
       ]
     },
- {
+    {
       "name": "frontend-react",
       "image": "isaacwhiz/whiz-react:latest",
       "essential": true,
-      "memory": 215,
+      "memory": 200,
       "portMappings": [
         {
           "hostPort": 80,
