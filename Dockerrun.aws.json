@@ -2,32 +2,32 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "whiz-api",
-      "image": "isaacwhiz/whiz-api:28.02.2024.02.21.37",
+      "name": "whiz-react",
+      "image": "isaacwhiz/whiz-react15:latest",
       "essential": true,
-      "memory": 200,
+      "memory": 300,
       "portMappings": [
         {
-          "hostPort": 8080,
+          "hostPort": 80,
+          "containerPort": 5173
+        }
+      ]
+    },
+    {
+      "name": "whiz-api",
+      "image": "isaacwhiz/whiz-api:latest",
+      "essential": true,
+      "memory": 400,
+      "portMappings": [
+        {
+          "hostPort": 3000,
           "containerPort": 8080
         }
       ],
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://awseb-e-jua3isge26-stack-awsebrdsdatabase-vhvnwf3lvbpn.ctk0c2g4wp2g.af-south-1.rds.amazonaws.com:5432/full_stack"
-        }
-      ]
-    },
-    {
-      "name": "frontend-react",
-      "image": "isaacwhiz/whiz-react:latest",
-      "essential": true,
-      "memory": 200,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 5173
+          "value": "jdbc:postgresql://awseb-e-b4qi4kbuhj-stack-awsebrdsdatabase-lfhlzb4ann1h.cjw226uka17s.af-south-1.rds.amazonaws.com:5432/full_stack"
         }
       ]
     }

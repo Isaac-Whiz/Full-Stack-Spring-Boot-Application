@@ -18,7 +18,7 @@
         <java.version>21</java.version>
         <docker.username>isaacwhiz</docker.username>
         <docker.image.name>whiz-api</docker.image.name>
-        <docker.image.tag/>
+        <docker.image.tag>latest</docker.image.tag>
     </properties>
     <dependencies>
 
