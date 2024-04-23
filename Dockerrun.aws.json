@@ -15,7 +15,7 @@
     },
     {
       "name": "whiz-api",
-      "image": "isaacwhiz/whiz-api:latest",
+      "image": "isaacwhiz/whiz-api:21.04.2024.13.28.33",
       "essential": true,
       "memory": 400,
       "portMappings": [
