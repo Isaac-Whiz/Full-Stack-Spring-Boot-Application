@@ -40,7 +40,7 @@ jobs:
           USERNAME=isaacwhiz \
           REPO=whiz-react15 \
           TAG=${{ steps.build-number.outputs.BUILD_NUMBER }} \
-          ../../ci/build-publish.sh . \
+          ../../.ci/build-publish.sh . \
             --build-arg api_base_url=http://api_base_url=http://super-stack-env.eba-kzu9x2dn.af-south-1.elasticbeanstalk.com:3000
       - name: Send slack message
         run: >
