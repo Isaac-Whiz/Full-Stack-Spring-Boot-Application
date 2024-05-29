@@ -12,10 +12,9 @@
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Built With](#built-with)
 - [Feedback](#feedback)
-- [Contributors](#contributors)
 - [Build Process](#build-process)
-- [Backers](#backers-)
 - [Sponsors](#sponsors-)
 - [Acknowledgments](#acknowledgments)
 
@@ -39,17 +38,54 @@ A few of the things you can do with the application:
 * Create a new entry.
 * Delete a person.
 * And also authenticate or register with the system.
+  
 
+## Built With
+### Frontend
+- [React](https://www.w3schools.com/whatis/whatis_react.asp)
+  
+  This is a JavaScript library created by Facebook, a User Interface (UI) library and a tool for building UI components.
+  This was used to create a number of components on the interface viz the buttons, drawers, and maniplating a couple of CSS properties listed but not limited to color, fonts, directions, sizes and many others.
+- [Vite](https://vitejs.dev/guide/)
+  
+  Vite (French word for "quick", pronounced /vit/, like "veet") is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts;
+  A dev server that provides rich feature enhancements over native ES modules, for example extremely fast Hot Module Replacement (HMR).
+  A build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. This was used to provide ready servers for the frontend react development with 
+  faster loading and automatic changes reflections.
+### Backend
+- [Java](https://www.java.com/en/)
+  
+  This is a general purpose, strongly typed, and object oriented programming languages used for creating stand alone and servelets. This was used to create the base (stack) of the application simply creating
+  the models to provided the foundation for application construction.
+- [Spring Boot](https://spring.io/projects/spring-boot)
+  
+  This is an extension of the Spring framework, Java annotation and dependency injection framework that provides a number of different applications in form of dependencies injectable into a basic Java 
+  application for functionality enchancements and faster development with simple configurations.
+  Some of its used applications in this project are described below;
+    * [Spring Data JDBC](https://spring.io/projects/spring-data-jdbc)
+      
+      This simply stands for Java Database Connectivity, an application / dependency that provides connectivity and interaction with the database through writing [SQL](https://www.w3schools.com/sql/) 
+      statements in Java code.
+    * [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+      
+      This is stands for Java Persistance Api which is an application with in Spring Boot that enables and manages interaction with the database through writing english-like statements using [Hibernate](https://hibernate.org/) in the background for data persistance.
+    * Spring Web
+      
+      This enables the creation of REST application as its the case with this application and uses Tomcat as the embedded web service for loading the Json / Xml at the given endpoint of the application.
+    * []()
+    * []()
+    * []()
+    * []()
+    * []()
+    * []()
+    * []()
+    * []()
+  
+### DevOps
 
 ## Feedback
 
-Feel free to send us feedback on [Twitter](https://twitter.com/gitpointapp) or [file an issue](https://github.com/gitpoint/git-point/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
-
-If there's anything you'd like to chat about, please feel free to join our [Gitter chat](https://gitter.im/git-point)!
-
-## Contributors
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification and is brought to you by these [awesome contributors](./CONTRIBUTORS.md).
+Feel free to send us feedback on [Twitter / X](https://x.com/IsaacWavamuno?s=09), [Mail](ssekajjawavamuno@gmail.com) else [file an issue](https://github.com/Isaac-Whiz/Full-Stack-Spring-Boot-Application/issues).
 
 ## Build Process
 
@@ -63,14 +99,6 @@ This project follows the [all-contributors](https://github.com/kentcdodds/all-co
 Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
 
 **Development Keys**: The `CLIENT_ID` and `CLIENT_SECRET` in `api/index.js` are for development purposes and do not represent the actual application keys. Feel free to use them or use a new set of keys by creating an [OAuth application](https://github.com/settings/applications/new) of your own. Set the "Authorization callback URL" to `gitpoint://welcome`.
-
-## Backers [![Backers on Open Collective](https://opencollective.com/git-point/backers/badge.svg)](#backers)
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/git-point#backer)]
-
-<a href="https://opencollective.com/git-point#backers" target="_blank"><img src="https://opencollective.com/git-point/backers.svg?width=890"></a>
-
-## Sponsors [![Sponsors on Open Collective](https://opencollective.com/git-point/sponsors/badge.svg)](#sponsors)
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/git-point#sponsor)]
 
