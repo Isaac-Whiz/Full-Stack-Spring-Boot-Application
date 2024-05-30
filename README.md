@@ -72,47 +72,106 @@ A few of the things you can do with the application:
     * Spring Web
       
       This enables the creation of REST application as its the case with this application and uses Tomcat as the embedded web service for loading the Json / Xml at the given endpoint of the application.
-    * []()
-    * []()
-    * []()
-    * []()
-    * []()
-    * []()
-    * []()
-    * []()
-  
-### DevOps
+    * [JUnit Jupiter](https://docs.spring.io/spring-framework/reference/testing/annotations/integration-junit-jupiter.html)
 
+      This is a testing class used in the application for writing unit tests. Checking different methods for example updating, deleting, creating and reading entities.
+    * [DataFaker](https://www.datafaker.net/documentation/getting-started/)
+      
+      This is a Java (and Ruby) maven repository used to porvide fake data for new applications majorly used for writing tests providing data about different entities like persons, 
+      vehicles, addresses and locations and many others.
+    * [Test Containers](https://testcontainers.com/)
+      
+      This is an open source framewok that provides isolated, throwaway and light weigth instances of different applications like databases, web browers or anyother than runns in 
+      containers for running tests. This was used for running the test individual / unit tests.
+    * [Flyway](https://flywaydb.org/)
+
+      This is a database migration tool which simplifies the taask of applying database modifications other than the tedious process of backing up, recreation and restoration of the
+      database records.
+    * [Postgres](https://www.postgresql.org/)
+      
+      This is a database management system which supervises relational databases and operations performed. This is the backbone of the application serving as the repository of the 
+      records saved.
+    * [Lombok](https://mvnrepository.com/artifact/org.projectlombok/lombok)
+      
+      This is a library that provides annotations used to generate boilerplate code, simplifying the tedious tasks like creating toString methods, constructors, hashCode methods and 
+      many others.
+    * [Spring Security](https://spring.io/projects/spring-security)
+      
+      This is a Java library used to secure the application endpoints enabling the installation of different authentication methods lik basic authentication, name and password 
+      authentication, token based authentication and many others. In specificity, [Json Web Token](https://jwt.io/) was used to taransfer the authentication credentials esnuring safety, 
+      integrity and validity.
+### Plugins
+   * [Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/)
+
+     This is a Maven plugin used to execute intergration tests which involved the interoperatability of different parts of the application.
+   * [Maven](https://maven.apache.org/)
+
+     This is a Java application build tool used to construct executable <code>.war</code> or <code>.jar</code> files for distribution.
+   * [Jib](https://cloud.google.com/blog/products/application-development/introducing-jib-build-java-docker-images-better)
+
+     This is a Docker build tool used to automate the containerization and deployment of the docker image with no need of writing docker files for the application.     
+### DevOps
+   * [Git](https://github.com/)
+     
+     This is an open source collaboration tool that enables developers to contribute on a given project hosted on a remote repository on different platforms like Github, GitLab and many 
+     others. This is incorporated into an application locally which monitors changes and makes updates, it also serves different functionalities like continous intergration and delivery 
+     of code through the workflows.
+   * [AWS](https://aws.amazon.com/)
+     
+     This acromny stands for Amazon Web Services which is a software as a platform providing a couple of different products and some of the used ones in the application are given below;
+   - EBS
+
+     This stands for Elastic Bean Stalk a service that manages the entire deployment process of the application having no need of much configuration as it requires a few clikcs to get 
+     the application up and running.
+   - ECS
+
+       This stands for Elastic Container Service, which is also an Amazon service used to enable spinning containers in the AWS infrastructure.       
+   - RDS
+
+      This represents Relational Database System which is an Amazon service for simple setting up and operating the relational databases. It provides support (drivers) for different
+      database management systems namely Postgres (used), MySQL and many others.  
+   - EC2
+
+     This is an other Amazon service that provides auto scable compute services running virtually with the ECS to ensure robust and effective traffic manageent.       
+   * [Docker]()
+
+     This is a containerisation technology that enables the packaging of application into docker images onto which platform indepent containers can ne run.
+     
+   
 ## Feedback
 
-Feel free to send us feedback on [Twitter / X](https://x.com/IsaacWavamuno?s=09), [Mail](ssekajjawavamuno@gmail.com) else [file an issue](https://github.com/Isaac-Whiz/Full-Stack-Spring-Boot-Application/issues).
+Choice entirely to send us feedback on [Twitter / X](https://x.com/IsaacWavamuno?s=09), [Mail](ssekajjawavamuno@gmail.com) else [file an issue](https://github.com/Isaac-Whiz/Full-Stack-Spring-Boot-Application/issues).
 
-## Build Process
+## Installation
 
-- Follow the [React Native Guide](https://facebook.github.io/react-native/docs/getting-started.html) for getting started building a project with native code. **A Mac is required if you wish to develop for iOS.**
-- Clone or download the repo
-- `yarn` to install dependencies
-- `yarn run link` to link react-native dependencies
-- `yarn start:ios` to start the packager and run the app in the iOS simulator (`yarn start:ios:logger` will boot the application with [redux-logger](<https://github.com/evgenyrodionov/redux-logger>))
-- `yarn start:android` to start the packager and run the app in the the Android device/emulator (`yarn start:android:logger` will boot the application with [redux-logger](https://github.com/evgenyrodionov/redux-logger))
-
-Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
-
-**Development Keys**: The `CLIENT_ID` and `CLIENT_SECRET` in `api/index.js` are for development purposes and do not represent the actual application keys. Feel free to use them or use a new set of keys by creating an [OAuth application](https://github.com/settings/applications/new) of your own. Set the "Authorization callback URL" to `gitpoint://welcome`.
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/git-point#sponsor)]
-
-<a href="https://opencollective.com/git-point/sponsor/0/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/1/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/2/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/3/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/4/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/5/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/6/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/7/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/8/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/git-point/sponsor/9/website" target="_blank"><img src="https://opencollective.com/git-point/sponsor/9/avatar.svg"></a>
-
+This is a Software as a Service which can be accessed from [here]().
+However, while wishing to run it locally, follow the below steps;
+- Milestone 1
+  Install Postgres starting from version 15.0++.
+  Install Docker on your machine.
+- Milestone 2
+  Open the CMD and run <code>docker pull postgres</code> to pull the postgres image from docker.
+  Open a file editor and paste the below configuration (keep the alignment as is) then save the file as a <code>.yaml</code> file.
+  
+  <code>
+  services:
+  db:
+    container_name: post
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/full_stack
+    volumes:
+        - db:/data/full_stack
+    ports:
+        - "2001:5432"
+    networks:
+      - db
+    restart: unless-stopped
+  </code>
+  
+  Locate where you saved the above <code>.yaml</code> following codes.
 ## Acknowledgments
 
 Thanks to [JetBrains](https://www.jetbrains.com) for supporting us with a [free Open Source License](https://www.jetbrains.com/buy/opensource).
