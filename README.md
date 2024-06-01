@@ -52,6 +52,10 @@ A few of the things you can do with the application:
   A dev server that provides rich feature enhancements over native ES modules, for example extremely fast Hot Module Replacement (HMR).
   A build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. This was used to provide ready servers for the frontend react development with 
   faster loading and automatic changes reflections.
+- [Chakra templates](isaacwhiz/whiz-react14)
+
+  This was used to claim different templates like predesigned buttons, drawers, navigation views and extra.
+  
 ### Backend
 - [Java](https://www.java.com/en/)
   
@@ -133,7 +137,7 @@ A few of the things you can do with the application:
    - EC2
 
      This is an other Amazon service that provides auto scable compute services running virtually with the ECS to ensure robust and effective traffic manageent.       
-   * [Docker]()
+   * [Docker](https://docs.docker.com/desktop/install/windows-install/)
 
      This is a containerisation technology that enables the packaging of application into docker images onto which platform indepent containers can ne run.
      
@@ -144,23 +148,25 @@ Choice entirely to send us feedback on [Twitter / X](https://x.com/IsaacWavamuno
 
 ## Installation
 
-This is a Software as a Service which can be accessed from [here]().
+If interested in exploring the flow and usage of the applicatio, can be accessed from [here]().
 However, while wishing to run it locally, follow the below steps;
 - Milestone 1
   Install Postgres starting from version 15.0++.
   Install Docker on your machine.
 - Milestone 2
   Open the CMD and run <code>docker pull postgres</code> to pull the postgres image from docker.
-  Open a file editor and paste the below configuration (keep the alignment as is) then save the file as a <code>.yaml</code> file.
+  Run <code>docker pull isaacwhiz/whiz-api</code> to pull the Whiz Api image from docker.
+  Run <code>docker pull isaacwhiz/whiz-react14</code> to pull the frontend image from docker.
+  Open a file editor and paste the below configuration (keep the alignment as is) then save the file as a <code>docker-compose.yaml</code> file.
   
   <code>
-  services:
+services:
   db:
     container_name: post
-    image: postgres:latest
+    image: postgres:15.4
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: whiz
+      POSTGRES_PASSWORD: isaacwhiz
       PGDATA: /data/full_stack
     volumes:
         - db:/data/full_stack
@@ -169,9 +175,52 @@ However, while wishing to run it locally, follow the below steps;
     networks:
       - db
     restart: unless-stopped
-  </code>
-  
-  Locate where you saved the above <code>.yaml</code> following codes.
-## Acknowledgments
 
-Thanks to [JetBrains](https://www.jetbrains.com) for supporting us with a [free Open Source License](https://www.jetbrains.com/buy/opensource).
+  isaacwhiz-api:
+   container_name: whiz-api
+   image: isaacwhiz/whiz-api
+   environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/full_stack
+   ports:
+     - "8088:8080"
+   networks:
+     - db
+   depends_on:
+     - db
+   restart: unless-stopped
+   command:
+     - --spring.datasource.url=jdbc:postgresql://db:5432/full_stack
+
+  isaacwhiz-react:
+    container_name: frontend
+    image: isaacwhiz/whiz-react14
+    build:
+      context: frontend/react
+      args:
+        api_base_url: http://localhost:8088
+    ports:
+      - "4000:5173"
+    depends_on:
+      - isaacwhiz-api
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+volumes:
+    db:
+  </code>
+
+  Note: If your configuration is distorted, use the file [here](https://github.com/Isaac-Whiz/Full-Stack-Spring-Boot-Application/blob/main/docker-compose.yml) and make a few adjustments to match the above.
+  Note: You can save the above file as <code>.yaml</code> or <code>.yml</code>.
+  Locate where you saved the above <code>.yaml</code> following codes.
+  <code>docker-compose up</code>
+  If you saved yor docker file with a different name then run <code>docker-compose -f custom-compose-file.yml up</code>
+  Navigate to the web browser and run <code>localhost:4000</code> in the search bar and press enter.
+  Viola! Your app is up and running.
+  
+## Credits
+- [Amigoscode](https://www.amigoscode.com/) as the mentor.
+- [AWS](https://aws.amazon.com/) for free tier services.
+- Emojis are taken from [here](https://github.com/arvida/emoji-cheat-sheet.com).
+
