@@ -13,4 +13,5 @@ public interface GamerDAO {
     void updateGamer(Gamer update);
     void deleteAllGamers();
     Optional<Gamer> selectGamerById(long id);
+    Optional<Gamer> selectGamerByEmail(String email);
 }

@@ -15,7 +15,7 @@ public class GamerRowMapper implements RowMapper<Gamer> {
                 rs.getInt("age"),
                 rs.getString("name"),
                 rs.getString("email"),
-                rs.getString("gender"));
+                rs.getString("password"), rs.getString("gender"));
 //                Gender.valueOf(rs.getString("gender")));
     }
 }

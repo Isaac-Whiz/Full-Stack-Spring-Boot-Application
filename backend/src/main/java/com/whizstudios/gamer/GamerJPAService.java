@@ -1,5 +1,6 @@
 package com.whizstudios.gamer;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,9 +9,11 @@ import java.util.Optional;
 @Service
 public class GamerJPAService implements GamerDAO{
     private final GamerJPARepository gamerJPARepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public GamerJPAService(GamerJPARepository gamerJPARepository) {
+    public GamerJPAService(GamerJPARepository gamerJPARepository, PasswordEncoder passwordEncoder) {
         this.gamerJPARepository = gamerJPARepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -25,7 +28,14 @@ public class GamerJPAService implements GamerDAO{
 
     @Override
     public void saveGamer(Gamer gamer) {
-        gamerJPARepository.save(gamer);
+        var encodedPassword  = passwordEncoder.encode(gamer.getPassword());
+        var encodedGamer = new Gamer(gamer.getId(),
+                gamer.getAge(),
+                gamer.getName(),
+                gamer.getEmail(),
+                encodedPassword,
+                gamer.getGender());
+        gamerJPARepository.save(encodedGamer);
     }
 
     @Override
@@ -54,7 +64,12 @@ public class GamerJPAService implements GamerDAO{
 
     @Override
     public Optional<Gamer> selectGamerById(long id) {
-        return Optional.empty();
+        return gamerJPARepository.findById(id);
+    }
+
+    @Override
+    public Optional<Gamer> selectGamerByEmail(String email) {
+        return gamerJPARepository.findByEmail(email);
     }
 
 }

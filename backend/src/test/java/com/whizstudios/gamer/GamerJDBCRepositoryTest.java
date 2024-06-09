@@ -1,7 +1,6 @@
 package com.whizstudios.gamer;
 
 import com.example.full_stack.AbstractUnitTests;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
 
     @Test
     void itShouldFindGamerById() {
-        Gamer gamer = new Gamer(9,20, "Jim", "eeeeeee" + UUID.randomUUID(), "female");
+        Gamer gamer = new Gamer(9,20, "Jim", "eeeeeee" + UUID.randomUUID(), "password", "female");
         gamerJDBCRepository.saveGamer(gamer);
         //Given
         var gamerById = gamerJDBCRepository.findGamerById(gamer.getId());
@@ -37,7 +36,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     @Test
     void itShouldFindGamers() {
         //Given
-        Gamer gamer = new Gamer(9,20, "Jim", "eeeeeee" + UUID.randomUUID(), "male");
+        Gamer gamer = new Gamer(9,20, "Jim", "eeeeeee" + UUID.randomUUID(), "password", "male");
         gamerJDBCRepository.saveGamer(gamer);
         //When
         List<Gamer> gamers = gamerJDBCRepository.findGamers();
@@ -49,7 +48,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     @Test
     void itShouldSaveGamer() {
         //Given
-        Gamer gamer =  new Gamer(10, 20, "Jux", "jux@gamil.com", "female");
+        Gamer gamer =  new Gamer(10, 20, "Jux", "jux@gamil.com", "password", "female");
         //When
         gamerJDBCRepository.saveGamer(gamer);
 
@@ -61,7 +60,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     @Test
     void itShouldExistsGamerWithEmail() {
         //Given
-        Gamer gamer =  new Gamer(10, 20, "Jux", "jux@gmail.com", "male");
+        Gamer gamer =  new Gamer(10, 20, "Jux", "jux@gmail.com", "password", "male");
         //When
         gamerJDBCRepository.saveGamer(gamer);
         //Then
@@ -79,7 +78,7 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     void itShouldDeleteGamerById() {
         //Given
 //        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com");
-        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com", "male");
+        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com", "password", "male");
         gamerJDBCRepository.saveGamer(gamer);
         //When
         gamerJDBCRepository.deleteGamerById(1);
@@ -90,11 +89,11 @@ class GamerJDBCRepositoryTest extends AbstractUnitTests {
     @Test
     void itShouldUpdateGamer() {
         //Given
-        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com", "female");
+        Gamer gamer = new Gamer(1, 23, "Siriimu", "siriimu@gmail.com", "password", "female");
         gamerJDBCRepository.saveGamer(gamer);
         //When
         gamerJDBCRepository.updateGamer(new Gamer(1, 23,
-                "Mukenenya", "mukenenya@gmail.com", "female"));
+                "Mukenenya", "mukenenya@gmail.com", "password", "female"));
         //Then
         assertThat(gamerJDBCRepository.findGamerById(1).get().getName().equals("Mukenenya") &&
                 gamerJDBCRepository.findGamerById(1).get().getEmail().equals("mukenenya@gmail.com")).isTrue();

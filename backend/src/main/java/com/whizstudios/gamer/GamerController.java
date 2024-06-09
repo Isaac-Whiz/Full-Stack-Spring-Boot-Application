@@ -1,6 +1,10 @@
 package com.whizstudios.gamer;
 
 
+import com.whizstudios.exception.ResourceNonFoundException;
+import com.whizstudios.jwt.JWTUtil;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,28 +14,33 @@ public class GamerController {
 
     private final GamerService gamerService;
     private final GamerJDBCRepository jdbcRepository;
-
     private final GamerJPAService gamerJPAService;
+    private final JWTUtil jwtUtil;
 
-    public GamerController(GamerService gamerService, GamerJDBCRepository jdbcRepository, GamerJPAService gamerJPAService) {
+    public GamerController(GamerService gamerService, GamerJDBCRepository jdbcRepository, GamerJPAService gamerJPAService, JWTUtil jwtUtil) {
         this.gamerService = gamerService;
         this.jdbcRepository = jdbcRepository;
         this.gamerJPAService = gamerJPAService;
+        this.jwtUtil = jwtUtil;
     }
 
 
     @GetMapping(path = "api/v1/gamers/{id}")
-    Gamer getGamer(@PathVariable("id") long id) {
-        return gamerService.findGamerById(id).orElseThrow(() -> new CustomExceptions("Gamer not found."));
+    GamerDTO getGamer(@PathVariable("id") long id) {
+        return gamerService.findGamerById(id).orElseThrow(() -> new ResourceNonFoundException("Gamer not found."));
     }
 
     @PostMapping("api/v1/gamer")
-    void registerGamer(@RequestBody Gamer gamer) {
+    ResponseEntity<?> registerGamer(@RequestBody Gamer gamer) {
         gamerJPAService.saveGamer(gamer);
+        String jwtToken = jwtUtil.issueToken(gamer.getEmail(), "ROLE_USER");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwtToken)
+                .build();
     }
 
     @GetMapping(path = "api/v1/gamers")
-    List<Gamer> getGamers() {
+    List<GamerDTO> getGamers() {
         return gamerService.getGamers();
     }
 

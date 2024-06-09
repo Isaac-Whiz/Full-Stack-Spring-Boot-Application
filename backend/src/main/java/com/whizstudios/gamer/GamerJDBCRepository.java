@@ -20,7 +20,7 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public Optional<Gamer> findGamerById(long id) {
         var sql = """
-                  SELECT id, age, name, email, gender FROM gamer WHERE id = ?
+                  SELECT id, age, name, email, password, gender FROM gamer WHERE id = ?
                   """;
         return jdbcTemplate.query(sql, gamerRowMapper, id).stream().findFirst();
     }
@@ -28,7 +28,7 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public List<Gamer> findGamers() {
         var sql = """
-                  SELECT id, age, name, email, gender FROM gamer;
+                  SELECT id, age, name, email, password, gender FROM gamer;
                   """;
 //        SELECT id, age, name, email FROM gamer;
         return jdbcTemplate.query(sql, gamerRowMapper);
@@ -37,15 +37,15 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public void saveGamer(Gamer gamer) {
         var sql = """
-                  INSERT INTO gamer VALUES(?, ?, ?, ?, ?)
+                  INSERT INTO gamer VALUES(?, ?, ?, ?, ?, ?)
                   """;
-        jdbcTemplate.update(sql, gamer.getId(), gamer.getAge(), gamer.getName(), gamer.getEmail(), gamer.getGender());
+        jdbcTemplate.update(sql, gamer.getId(), gamer.getAge(), gamer.getName(), gamer.getEmail(), gamer.getPassword(), gamer.getGender());
     }
 
     @Override
     public boolean existsGamerWithEmail(String email) {
         var sql = """
-                  SELECT id, age, name, email, gender FROM gamer WHERE email = ?
+                  SELECT id, age, name, email, password, gender FROM gamer WHERE email = ?
                   """;
         return !jdbcTemplate.query(sql, gamerRowMapper, email).isEmpty();
     }
@@ -53,7 +53,7 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public boolean existsGamerById(long id) {
         var sql = """
-                  SELECT id, age, name, email, gender FROM gamer WHERE id = ?
+                  SELECT id, age, name, email, password, gender FROM gamer WHERE id = ?
                   """;
         return !jdbcTemplate.query(sql, gamerRowMapper, id).isEmpty();
     }
@@ -100,8 +100,17 @@ public class GamerJDBCRepository implements GamerDAO{
     @Override
     public Optional<Gamer> selectGamerById(long id) {
         var sql = """
-                  SELECT id, age, name, email, gender FROM gamer WHERE id = ?
+                  SELECT id, age, name, email, password, gender FROM gamer WHERE id = ?
                   """;
         return jdbcTemplate.query(sql, gamerRowMapper, id).stream().findFirst();
+    }
+
+    @Override
+    public Optional<Gamer> selectGamerByEmail(String email) {
+        var sql = """
+                  SELECT id, age, name, email, password, gender FROM gamer WHERE email = ? 
+                  """;
+
+        return jdbcTemplate.query(sql, gamerRowMapper, email).stream().findFirst();
     }
 }

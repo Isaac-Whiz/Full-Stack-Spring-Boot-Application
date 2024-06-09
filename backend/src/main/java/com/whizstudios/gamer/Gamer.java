@@ -2,7 +2,12 @@ package com.whizstudios.gamer;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +16,7 @@ import java.util.Objects;
         @UniqueConstraint(name = "gamer_email_unique", columnNames = "email")
 })
 @NoArgsConstructor
-public class Gamer {
+public class Gamer implements UserDetails {
     @Id
     @SequenceGenerator(name = "gamer_id_generator", sequenceName = "gamer_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamer_id_generator")
@@ -29,29 +34,37 @@ public class Gamer {
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    public Gamer(long id, int age, String name, String email, String gender) {
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    public Gamer(long id, int age, String name, String email, String password, String gender) {
         this.id = id;
         this.age = age;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.gender = gender;
     }
 
-    public Gamer(int age, String name, String email, String gender) {
+    public Gamer(int age, String name, String email, String password, String gender) {
         this.age = age;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.gender = gender;
     }
-    public Gamer(int age, String name, String email) {
+    public Gamer(int age, String name, String email, String password) {
         this.age = age;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
-    public Gamer(String name, String email) {
+    public Gamer(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
+
     }
 
 
@@ -118,5 +131,40 @@ public class Gamer {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

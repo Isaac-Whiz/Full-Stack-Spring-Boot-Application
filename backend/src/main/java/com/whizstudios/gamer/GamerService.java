@@ -1,26 +1,30 @@
 package com.whizstudios.gamer;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GamerService {
 
     private final GamerJDBCRepository jdbcRepository;
+    private final GamerDTOMapper gamerDTOMapper;
 
-    public GamerService(GamerJDBCRepository gamerJDBCRepository) {
+    public GamerService(GamerJDBCRepository gamerJDBCRepository, GamerDTOMapper gamerDTOMapper) {
         this.jdbcRepository = gamerJDBCRepository;
+        this.gamerDTOMapper = gamerDTOMapper;
     }
 
-    Optional<Gamer> findGamerById(Long id) {
-        return jdbcRepository.findGamerById(id);
+    Optional<GamerDTO> findGamerById(Long id) {
+        return jdbcRepository.findGamerById(id).map(gamerDTOMapper);
     }
 
-    List<Gamer> getGamers() {
-        return jdbcRepository.findGamers();
+    List<GamerDTO> getGamers() {
+        return jdbcRepository.findGamers().stream().map(gamerDTOMapper).collect(Collectors.toList());
     }
 
 

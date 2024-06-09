@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 class GamerJPAServiceTest {
 
@@ -14,10 +15,13 @@ class GamerJPAServiceTest {
     @Mock
     private GamerJPARepository gamerJPARepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        underTest = new GamerJPAService(gamerJPARepository);
+        underTest = new GamerJPAService(gamerJPARepository, passwordEncoder);
     }
 
     @AfterEach
